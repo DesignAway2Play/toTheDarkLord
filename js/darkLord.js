@@ -17,7 +17,7 @@ let winCheck = {
 
 
 //functions
-
+initialize();
 function initialize() {
   sym = {
       x1Icon_1: {
@@ -50,6 +50,7 @@ function initialize() {
       results: ["", "", "", ""],
     };
   bonus =  {
+    d20: [0,0,0];
     addTrue: function(){
         d20.pop();
         d20.unshift(true);
@@ -57,7 +58,7 @@ function initialize() {
     bIcon1: {
         imgURL = 'assets/img/blank.png',
       },
-    b1Icon: {
+    b1Icon2: {
         imgURL = 'assets/img/blank.png',
       },
     b2Icon: {
@@ -72,17 +73,34 @@ function initialize() {
     b3Icon:  {
         imgURL = 'assets/img/blank.png',
       }
-    };
+    },
+    pArea: [],
+    go: function () {
+      var i = 0;
+      var length = 5;
+      do {
+        var checkBonusJackpot1 = randomizer(5);
+        var checkBonusJackpot2 = randomizer(5);
+        if (checkBonusJackpot1 === checkBonusJackpot2) length += 1;
+        bonus.pArea.push(randomizer(length));
+        i += 1;
+      }
+      while (i < length);
+
+    }
 
   results = {
     board: [0, 0, 0, 0],
-    symLength: 4,
+    symLength: 6,
     pull:
+    // need event listener of amount of bet
+      pScore = betAmountvariable here + pScore
       results.board.forEach(function (col, i) {
-      this.board.splice(i, 1, randomizer(this.symLength));
+      results.board.splice(i, 1, randomizer(this.symLength));
       }),
     jackpotVisibility: function () {
       // 1 out of 3 chance for half jackpot
+      var i = 0;
         var halfJack = randomizer(3);
         var halfJack2 = randomizer(3);
       // 1 out of 5 chance for jackpot
@@ -91,22 +109,24 @@ function initialize() {
         var jackpotLength = 0;
           if (halfJack === halfJack2) jackpotLength += 1;
           if (fullJack === fullJack2) jackpotLength += 1;
-        this.symLength += jackpotLength;
+        results.symLength += jackpotLength;
       },
-
+      // bonus section
+      bonusChance: function () {
+        var answer = randomizer(4);
+        var d20Index = randomizer(20, true);
+          if (answer === 1) bonus_addTrue;
+          if (results.bonus_d20[d20Index] === true) bonus.go;
+      },
+      bonus_d20: [true, false, false, false, false, false, false,
+          false, false, false, false, false, false, false,
+        false, false, false, false, false, false],
+      bonus_addTrue: function() {
+          this.d20.pop();
+          this.d20.unshift(true);
+        },
 
     }
-
-
-    // bonus section
-    bonus_d20: [true, false, false, false, false, false, false,
-        false, false, false, false, false, false, false,
-      false, false, false, false, false, false],
-    bonus_addTrue: function() {
-        d20.pop();
-        d20.unshift(true);
-      },
-  };
 
 // where all needed functions initialize
           render();
@@ -125,11 +145,41 @@ function render() {
   cResultEl.parentElement.style.border = winner === 'c' ? '10px solid darkgrey' : '10px solid white';
 }
 
- function playRoll() {
 
- };
 
-function payOut() {
+function payOut(bet) {
+  // add dom manip
+  if (results.board[0] && results.board[1] && results.board[2] === results.board[3]) {
+    if (results.board === [1,1,1,1]) return bet * 2;
+    else if (results.board === [2,2,2,2]) return bet * 2;
+    else if (results.board === [3,3,3,3]) return bet * 5;
+    else if (results.board === [4,4,4,4]) return bet * 10;
+    else if (results.board === [5,5,5,5]) return bet * 50;
+    else if (results.board === [6,6,6,6]) return bet * 100;
+  };
+    else if (results.board[0] && results.board[1] === results.board[2] || resuts.board[1] && resuts.board[2] === resuts.board[3] ) {
+    if (results.board[0] && resuts.board[1] && results.board[2] === 1 || results.board[1] && resuts.board[2] && results.board[3] === 1) return bet * 1;
+    else if (results.board[0] && resuts.board[1] && results.board[2] === 2 || results.board[1] && resuts.board[2] && results.board[3] === 2) return bet * 1;
+    else if (results.board[0] && resuts.board[1] && results.board[2] === 3 || results.board[1] && resuts.board[2] && results.board[3] === 3) return bet * 3;
+    else if (results.board[0] && resuts.board[1] && results.board[2] === 2 || results.board[1] && resuts.board[2] && results.board[3] === 2) return bet * 5;
+    else if (results.board[0] && resuts.board[1] && results.board[2] === 2 || results.board[1] && resuts.board[2] && results.board[3] === 2) return bet * 10;
+    else if (results.board[0] && resuts.board[1] && results.board[2] === 2 || results.board[1] && resuts.board[2] && results.board[3] === 2) return bet * 20;
+  };
+    else {
+      // add dom manip
+    }
+};
+
+function payOutBonus() {
+  if (bonus.d20[0] && bonus.d20[1] === bonus.d20[2]) {
+    if (bonus.d20 === [1,1,1]) return bet * 3;
+    else if (bonus.d20 === [2,2,2]) return bet * 5
+    // increase spins
+    else if (bonus.d20 === [3,3,3]);
+    else if (bonus.d20 === [4,4,4]) return bet * 15;
+    else if (bonus.d20 === [5,5,5]) return bet * 50;
+
+  };
 
 };
 
@@ -141,7 +191,10 @@ function payOut() {
 
  };
 
- function randomizer(length) {
+ function randomizer(length, condition) {
+   if (condition === true) return Math.floor(Math.random() * length) + 0;
+   else {
    // six should be dynamic based upon the modifier for the half jackpot and jackpot
    return Math.floor(Math.random() * length);
- };
+    }
+  };
