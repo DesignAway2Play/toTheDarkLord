@@ -19,6 +19,7 @@ let winCheck = {
 //functions
 initialize();
 function initialize() {
+  /*
   sym = {
       x1Icon_1: {
         imgURL = 'assets/img/blank.png',
@@ -43,69 +44,71 @@ function initialize() {
       },
       x4Icon:  {
         imgURL = 'assets/img/blank.png',
-    };
+    },
+    */
   pScore = {
       s: 1000,
       stam: 3,
       results: ["", "", "", ""],
-    };
+    },
   bonus =  {
-    d20: [0,0,0];
-    addTrue: function(){
-        d20.pop();
-        d20.unshift(true);
-      },
+    d20: [0,0,0],
+      /*
     bIcon1: {
-        imgURL = 'assets/img/blank.png',
+        imgURL = 'assets/img/blank.png'
       },
     b1Icon2: {
-        imgURL = 'assets/img/blank.png',
+        imgURL = 'assets/img/blank.png'
       },
     b2Icon: {
-        imgURL = 'assets/img/blank.png',
+        imgURL = 'assets/img/blank.png'
       },
     b3Icon: {
-        imgURL = 'assets/img/blank.png',
+        imgURL = 'assets/img/blank.png'
       },
     b2Icon: {
-        imgURL = 'assets/img/blank.png',
+        imgURL = 'assets/img/blank.png'
       },
     b3Icon:  {
-        imgURL = 'assets/img/blank.png',
+        imgURL = 'assets/img/blank.png'
       }
     },
+    */
     pArea: [],
     go: function () {
       var i = 0;
       var length = 5;
       do {
-        var checkBonusJackpot1 = randomizer(5);
-        var checkBonusJackpot2 = randomizer(5);
+        var checkBonusJackpot1 = randomizer(5, false);
+        var checkBonusJackpot2 = randomizer(5, false);
         if (checkBonusJackpot1 === checkBonusJackpot2) length += 1;
-        bonus.pArea.push(randomizer(length));
+        bonus.pArea.push(randomizer(length, false));
         i += 1;
       }
       while (i < length);
 
-    }
-
+    },
+}
   results = {
     board: [0, 0, 0, 0],
     symLength: 6,
-    pull:
+    betAmount: 2,
+
+    pull: function () {
     // need event listener of amount of bet
-      pScore = betAmountvariable here + pScore
+      pScore.s = pScore.s - results.betAmount
       results.board.forEach(function (col, i) {
-      results.board.splice(i, 1, randomizer(this.symLength));
-      }),
+      results.board.splice(i, 1, randomizer(results.symLength, false));
+        });
+    },
     jackpotVisibility: function () {
       // 1 out of 3 chance for half jackpot
       var i = 0;
-        var halfJack = randomizer(3);
-        var halfJack2 = randomizer(3);
+        var halfJack = randomizer(3, false);
+        var halfJack2 = randomizer(3, false);
       // 1 out of 5 chance for jackpot
-        var fullJack = randomizer(5);
-        var fullJack2 = randomizer(5);
+        var fullJack = randomizer(5, false);
+        var fullJack2 = randomizer(5, false);
         var jackpotLength = 0;
           if (halfJack === halfJack2) jackpotLength += 1;
           if (fullJack === fullJack2) jackpotLength += 1;
@@ -113,9 +116,9 @@ function initialize() {
       },
       // bonus section
       bonusChance: function () {
-        var answer = randomizer(4);
+        var answer = randomizer(4, false);
         var d20Index = randomizer(20, true);
-          if (answer === 1) bonus_addTrue;
+          if (answer === 1) results.bonus_addTrue;
           if (results.bonus_d20[d20Index] === true) bonus.go;
       },
       bonus_d20: [true, false, false, false, false, false, false,
@@ -126,12 +129,21 @@ function initialize() {
           this.d20.unshift(true);
         },
 
-    }
+    };
 
+/*
+order of ops:
+console.log(results.jackpotVisibility(1))
+  this affects results.symLength
+console.log(results.pull(1))
+  this affects pScore.s, results.board
+console.log(results.bonusChance(1))
+  this affects results.bonus_d20
+*/
 // where all needed functions initialize
-          render();
-  }
 
+  }
+/*
 function render() {
   // render scores
   pScoreEl.textContent = scores.p;
@@ -144,7 +156,7 @@ function render() {
   pResultEl.parentElement.style.border = winner === 'p' ? '10px solid darkgrey' : '10px solid white';
   cResultEl.parentElement.style.border = winner === 'c' ? '10px solid darkgrey' : '10px solid white';
 }
-
+*/
 
 
 function payOut(bet) {
@@ -156,7 +168,7 @@ function payOut(bet) {
     else if (results.board === [4,4,4,4]) return bet * 10;
     else if (results.board === [5,5,5,5]) return bet * 50;
     else if (results.board === [6,6,6,6]) return bet * 100;
-  };
+  }
     else if (results.board[0] && results.board[1] === results.board[2] || resuts.board[1] && resuts.board[2] === resuts.board[3] ) {
     if (results.board[0] && resuts.board[1] && results.board[2] === 1 || results.board[1] && resuts.board[2] && results.board[3] === 1) return bet * 1;
     else if (results.board[0] && resuts.board[1] && results.board[2] === 2 || results.board[1] && resuts.board[2] && results.board[3] === 2) return bet * 1;
@@ -164,7 +176,7 @@ function payOut(bet) {
     else if (results.board[0] && resuts.board[1] && results.board[2] === 2 || results.board[1] && resuts.board[2] && results.board[3] === 2) return bet * 5;
     else if (results.board[0] && resuts.board[1] && results.board[2] === 2 || results.board[1] && resuts.board[2] && results.board[3] === 2) return bet * 10;
     else if (results.board[0] && resuts.board[1] && results.board[2] === 2 || results.board[1] && resuts.board[2] && results.board[3] === 2) return bet * 20;
-  };
+  }
     else {
       // add dom manip
     }
@@ -183,6 +195,8 @@ function payOutBonus() {
 
 };
 
+/*
+
  function reset() {
 
  };
@@ -190,11 +204,11 @@ function payOutBonus() {
  function credit() {
 
  };
-
+*/
  function randomizer(length, condition) {
    if (condition === true) return Math.floor(Math.random() * length) + 0;
    else {
    // six should be dynamic based upon the modifier for the half jackpot and jackpot
    return Math.floor(Math.random() * length);
-    }
-  };
+ };
+  }
