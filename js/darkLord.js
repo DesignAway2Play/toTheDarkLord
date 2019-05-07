@@ -116,23 +116,29 @@ function initialize() {
 
     pull: function () {
     // need event listener of amount of bet
-    if (turnPlayer === 0) {
-      pScore.s = pScore.s - results.betAmount
-      results.board.forEach(function (col, i) {
-          results.board.splice(i, 1, randomizer(results.symLength, false));
-        });
-        activeC.s = activeC.s - payOut(results.betAmount);
-        newC();
-      }
-    else if (turnPlayer === 1) {
-      activeC.s = activeC.s - results.betAmount
-      results.board.forEach(function (col, i) {
-          results.board.splice(i, 1, randomizer(results.symLength, false));
-        });
-        pScore.s = pScore.s - payOutC(results.betAmount);
-        newC();
-      };
-    },
+      if (pScore.stam > 0) {
+        if (turnPlayer === 0) {
+          pScore.s = pScore.s - results.betAmount
+          results.board.forEach(function (col, i) {
+              results.board.splice(i, 1, randomizer(results.symLength, false));
+            });
+            activeC.s = activeC.s - payOut(results.betAmount);
+            newC();
+            turnChange();
+              }
+        }
+      if (activeC.stam > 0) {
+          if (turnPlayer === 1) {
+            activeC.s = activeC.s - results.betAmount
+            results.board.forEach(function (col, i) {
+              results.board.splice(i, 1, randomizer(results.symLength, false));
+            });
+            pScore.s = pScore.s - payOutC(results.betAmount);
+            newC();
+            turnChange();
+          };
+        }
+      },
     jackpotVisibility: function () {
       // 1 out of 3 chance for half jackpot
       var i = 0;
@@ -175,7 +181,6 @@ console.log(results.bonusChance(1))
 */
 // where all needed functions initialize
   activeC = chooseC();
-  console.log(activeC);
   }
 /*
 function render() {
@@ -200,11 +205,11 @@ function chooseC() {
   var c = randomizer(2, false);
   if (c === 1) {
     return cScore.kali;
-  }
+    }
   else if (c === 2) {
       return cScore.thor;
-  }
-};
+    }
+  };
 
 function sCheck() {
   if (pScore.s < 0) {
@@ -221,31 +226,31 @@ function payOut(bet) {
   // add dom manip
   if (results.board[0] && results.board[1] && results.board[2] === results.board[3]) {
     // damage
-    if (results.board === [1,1,1,1]) return results.betAmount * 2;
+      if (results.board === [1,1,1,1]) return results.betAmount * 2;
     // health regen
-    else if (results.board === [2,2,2,2]) pScore.s = pScore.s + (results.betAmount * 4);
+      else if (results.board === [2,2,2,2]) pScore.s = pScore.s + (results.betAmount * 4);
     // charged attack
-    else if (results.board === [3,3,3,3]) return results.betAmount * 5;
+      else if (results.board === [3,3,3,3]) return results.betAmount * 5;
     //critical hit
-    else if (results.board === [4,4,4,4]) return results.betAmount * 10;
+      else if (results.board === [4,4,4,4]) return results.betAmount * 10;
     // super
-    else if (results.board === [5,5,5,5]) {
-        activeC.stam = activeC.stam - 1;
+      else if (results.board === [5,5,5,5]) {
+        pScore.stam += 1;
         return results.betAmount * 50;
-      };
+      }
     // instant kill
-    else if (results.board === [6,6,6,6]) return results.betAmount * 100;
-  }
-    else if (results.board[0] && results.board[1] === results.board[2] || results.board[1] && results.board[2] === results.board[3] ) {
-    if (results.board[0] && results.board[1] && results.board[2] === 1 || results.board[1] && results.board[2] && results.board[3] === 1) return results.betAmount * 1;
-    else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 1;
+      else if (results.board === [6,6,6,6]) return results.betAmount * 100;
+    }
+  else if (results.board[0] && results.board[1] === results.board[2] || results.board[1] && results.board[2] === results.board[3] ) {
+      if (results.board[0] && results.board[1] && results.board[2] === 1 || results.board[1] && results.board[2] && results.board[3] === 1) return results.betAmount * 1;
+      else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 1;
     // health regen
-    else if (results.board[0] && results.board[1] && results.board[2] === 3 || results.board[1] && results.board[2] && results.board[3] === 3) pScore.s + (results.betAmount * 3);
-    else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 5;
-    else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 10;
-    else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 20;
-  }
-    else {
+      else if (results.board[0] && results.board[1] && results.board[2] === 3 || results.board[1] && results.board[2] && results.board[3] === 3) pScore.s + (results.betAmount * 3);
+      else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 5;
+      else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 10;
+      else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 20;
+    }
+  else {
       // add dom manip
       return 0
     }
@@ -255,34 +260,34 @@ function payOutC(bet) {
   // add dom manip
   if (results.board[0] && results.board[1] && results.board[2] === results.board[3]) {
     // damage
-    if (results.board === [1,1,1,1]) return results.betAmount * 3;
+      if (results.board === [1,1,1,1]) return results.betAmount * 3;
     // health regen
-    else if (results.board === [2,2,2,2]) activeC.s = activeC.s + (results.betAmount * 2);
+      else if (results.board === [2,2,2,2]) activeC.s = activeC.s + (results.betAmount * 2);
     // charged attack
-    else if (results.board === [3,3,3,3]) return results.betAmount * 5;
+      else if (results.board === [3,3,3,3]) return results.betAmount * 5;
     //critical hit
-    else if (results.board === [4,4,4,4]) return results.betAmount * 10;
+      else if (results.board === [4,4,4,4]) return results.betAmount * 10;
     // super
-    else if (results.board === [5,5,5,5]) {
+      else if (results.board === [5,5,5,5]) {
         turnChange(true);
-      };
+        }
     // instant kill
-    else if (results.board === [6,6,6,6]) return results.betAmount * 50;
-  }
-    else if (results.board[0] && results.board[1] === results.board[2] || results.board[1] && results.board[2] === results.board[3] ) {
-    if (results.board[0] && results.board[1] && results.board[2] === 1 || results.board[1] && results.board[2] && results.board[3] === 1) return results.betAmount * 1;
-    else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 1.5;
+      else if (results.board === [6,6,6,6]) return results.betAmount * 50;
+    }
+  else if (results.board[0] && results.board[1] === results.board[2] || results.board[1] && results.board[2] === results.board[3] ) {
+      if (results.board[0] && results.board[1] && results.board[2] === 1 || results.board[1] && results.board[2] && results.board[3] === 1) return results.betAmount * 1;
+      else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 1.5;
     // health regen
-    else if (results.board[0] && results.board[1] && results.board[2] === 3 || results.board[1] && results.board[2] && results.board[3] === 3) activeC.s + (results.betAmount * 1);
-    else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 5;
-    else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 10;
-    else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 15;
+      else if (results.board[0] && results.board[1] && results.board[2] === 3 || results.board[1] && results.board[2] && results.board[3] === 3) activeC.s + (results.betAmount * 1);
+      else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 5;
+      else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 10;
+      else if (results.board[0] && results.board[1] && results.board[2] === 2 || results.board[1] && results.board[2] && results.board[3] === 2) return results.betAmount * 15;
   }
-    else {
+  else {
       // add dom manip
       return 0
-    }
-};
+      }
+  };
 
 function payOutBonus() {
   pays = 0;
@@ -317,10 +322,10 @@ function payOutBonus() {
 */
 
  function randomizer(length, condition) {
-   if (condition === true) return Math.floor(Math.random() * length) + 0;
+   if (condition === true) return Math.floor(Math.random() * length);
    else {
    // six should be dynamic based upon the modifier for the half jackpot and jackpot
-   return Math.floor(Math.random() * length);
+    return Math.floor(Math.random() * length) + 1;
     };
   };
 
@@ -328,14 +333,15 @@ function payOutBonus() {
     // this is the computer's turn
     if (turnPlayer === 1) {
       if (activeC.stam === 0)  {
-
-      turnPlayer -= 1;
+        turnPlayer -= 1;
+        pScore.stam = randomizer(6, false);
+          };
         }
-      }
     // this is the player's turn
     else if (turnPlayer === 0) {
       if (pScore.stam === 0) {
         turnPlayer += 1;
+        activeC.stam = randomizer(8, false)
         }
       }
     else if (condition === true) {
