@@ -216,73 +216,117 @@ function newC() {
 
 function payOut(bet) {
   // add dom manip
-  if (results.board[0] === results.board[1] && results.board[1] === results.board[2] && results.board[2] === results.board[3]) {
-    // damage
-      if (results.board === [1,1,1,1]) return bet * 2;
-    // health regen
-      else if (results.board === [2,2,2,2]) {
-        pScore.s = pScore.s + (bet * 4);
-        return 0;
-          }
-    // charged attack
-      else if (results.board === [3,3,3,3]) return bet * 5;
-    //critical hit
-      else if (results.board === [4,4,4,4]) return bet * 10;
-    // super
-      else if (results.board === [5,5,5,5]) {
-        pScore.stam += 1;
-        return bet * 20;
-      }
+    results.board = [1,3,7,5];
 
-      else if (results.board === [6,6,6,6]) return bet * 30;
-      else if (results.board === [7,7,7,7]) return bet * 50;
-    // instant kill
-      else if (results.board === [8,8,8,8]) {
-        activeC.s = 0;
-        return 0;
-          }
-          else {
-            console.log("wtf all 4")
-          };
-        }
-  else if (results.board[0] === results.board[1] && results.board[0] === results.board[2] || results.board[1] === results.board[2] && results.board[1] === results.board[3] ) {
-      if (results.board[0] === 1 && results.board[1] === 1 && results.board[2] === 1 || results.board[1] === 1 && results.board[2] === 1 && results.board[3] === 1) return bet * 1;
-      else if (results.board[0] === 2 && results.board[1] === 2 && results.board[2] === 2 || results.board[1] === 2 && results.board[2] === 2 && results.board[3] === 2) return bet * 1;
+    if (results.board[0] === results.board[1] && results.board[1] === results.board[2] && results.board[2] === results.board[3]) {
+      // damage
+      if (results.board == [1,1,1,1]) {
+        return bet * 2
+      }
+      // health regen
+      else if (results.board == [2,2,2,2]) {
+        pScore.s = pScore.s + (bet * 4);
+        return 0
+      }
+      // charged attack
+      else if (results.board == [3,3,3,3]) {
+        return bet * 5
+      }
+      //critical hit
+      else if (results.board == [4,4,4,4]) {
+        return bet * 10
+      }
+      // super
+      else if (results.board == [5,5,5,5]) {
+        pScore.stam += 1
+        return bet * 20
+      }
+      else if (results.board == [6,6,6,6]) {
+        return bet * 30
+      }
+      else if (results.board == [7,7,7,7]) {
+        return bet * 50
+      }
+      // instant kill
+      else if (results.board == [8,8,8,8]) {
+        activeC.s = 0
+        return 0
+      }
+    }
+/*
+    for debugging
+     else {
+      console.log("wtf all 4")
+  }
+  */
+    if (results.board[0] === results.board[1] && results.board[0] === results.board[2] || results.board[1] === results.board[2] && results.board[1] === results.board[3] ) {
+      if (results.board[0] === 1 && results.board[1] === 1 && results.board[2] === 1 || results.board[1] === 1 && results.board[2] === 1 && results.board[3] === 1) {
+        return bet * 1;
+      }
+      else if (results.board[0] === 2 && results.board[1] === 2 && results.board[2] === 2 || results.board[1] === 2 && results.board[2] === 2 && results.board[3] === 2) {
+        return bet * 1;
+      }
     // health regen
       else if (results.board[0] === 3 && results.board[1] === 3 && results.board[2] === 3 || results.board[1] === 3 && results.board[2] === 3 && results.board[3] === 3) {
         pScore.s = pScore.s + (bet * 4);
         return 0;
         }
-      else if (results.board[0] === 4 && results.board[1] === 4 && results.board[2] === 4 || results.board[1] === 4 && results.board[2] === 4 && results.board[3] === 4) return bet * 5;
-      else if (results.board[0] === 5 && results.board[1] === 5 && results.board[2] === 5 || results.board[1] === 5 && results.board[2] === 5 && results.board[3] === 5) return bet * 10;
-      else if (results.board[0] === 6 && results.board[1] === 6 && results.board[2] === 6 || results.board[1] === 6 && results.board[2] === 6 && results.board[3] === 6) return bet * 20;
-      else if (results.board[0] === 7 && results.board[1] === 7 && results.board[2] === 7 || results.board[1] === 7 && results.board[2] === 7 && results.board[3] === 7) return bet * 35;
-      else if (results.board[0] === 8 && results.board[1] === 8 && results.board[2] === 8 || results.board[1] === 8 && results.board[2] === 8 && results.board[3] === 8) return bet * 50;
+      else if (results.board[0] === 4 && results.board[1] === 4 && results.board[2] === 4 || results.board[1] === 4 && results.board[2] === 4 && results.board[3] === 4) {
+        return bet * 5;
+      }
+      else if (results.board[0] === 5 && results.board[1] === 5 && results.board[2] === 5 || results.board[1] === 5 && results.board[2] === 5 && results.board[3] === 5) {
+        return bet * 10;
+      }
+      else if (results.board[0] === 6 && results.board[1] === 6 && results.board[2] === 6 || results.board[1] === 6 && results.board[2] === 6 && results.board[3] === 6) {
+        return bet * 20;
+      }
+      else if (results.board[0] === 7 && results.board[1] === 7 && results.board[2] === 7 || results.board[1] === 7 && results.board[2] === 7 && results.board[3] === 7) {
+        return bet * 35
+      }
+      else if (results.board[0] === 8 && results.board[1] === 8 && results.board[2] === 8 || results.board[1] === 8 && results.board[2] === 8 && results.board[3] === 8) {
+        return bet * 50;
+      }
+      /*
+      for debugging
       else {
-            console.log("wtf all 3")
-          };
-    }
-    else if (results.board[0] === results.board[1] || results.board[2] === results.board[3] || results.board[1] === results.board[2]) {
-        if ((results.board[0] === 4 && results.board[1] === 4) || (results.board[2] === 4) && (results.board[3] === 4)) {
-            pScore.s = pScore.s + (bet * 2)
+            console.log("wtf all 3");
           }
-        else if ((results.board[0] === 5 && results.board[1] === 5) || (results.board[2] === 5 && results.board[3] === 5) || (results.board[1] === 5 && results[2] === 5)) return bet * 1;
-        else if ((results.board[0] === 6 && results.board[1] === 6) || (results.board[2] === 6 && results.board[3] === 6) || (results.board[1] === 6 && results[2] === 6)) return bet * 2;
-        else if ((results.board[0] === 7 && results.board[1] === 7) || (results.board[2] === 7 && results.board[3] === 7) || (results.board[1] === 7 && results[2] === 7)) return bet * 5;
-        else if ((results.board[0] === 8 && results.board[1] === 8) || (results.board[2] === 8 && results.board[3] === 8) || (results.board[1] === 8 && results[2] === 8)) return bet * 6;
+          */
+    }
+
+    if (results.board[0] === results.board[1] || results.board[2] === results.board[3] || results.board[1] === results.board[2]) {
+        if (results.board[0] === 4 && results.board[1] === 4 || results.board[2] === 4 && results.board[3] === 4) {
+            pScore.s = pScore.s + (bet * 2);
+          }
+        else if (results.board[0] === 5 && results.board[1] === 5 || results.board[2] === 5 && results.board[3] === 5 || results.board[1] === 5 && results.board[2] === 5) {
+          return bet * 1;
+        }
+        else if (results.board[0] === 6 && results.board[1] === 6 || results.board[2] === 6 && results.board[3] === 6 || results.board[1] === 6 && results.board[2] === 6) {
+          return bet * 2;
+        }
+        else if (results.board[0] === 7 && results.board[1] === 7 || results.board[2] === 7 && results.board[3] === 7 || results.board[1] === 7 && results.board[2] === 7) {
+          return bet * 5;
+        }
+        else if (results.board[0] === 8 && results.board[1] === 8 || results.board[2] === 8 && results.board[3] === 8 || results.board[1] === 8 && results.board[2] === 8) {
+          return bet * 6;
+        }
+        /*
+        for debugging
         else {
               console.log("wtf pairs");
               return 0;
-            };
-          }
+            }
+            */
+    }
   else {
       // add dom manip
-      return 0
+      return 0;
     }
 };
 
 function payOutC(bet) {
   // add dom manip
+  results.board = [5,5,5,5];
   if (results.board[0] === results.board[1] && results.board[1] === results.board[2] && results.board[2] === results.board[3]) {
     // damage
       if (results.board === [1,1,1,1]) return bet * 3;
@@ -328,10 +372,10 @@ function payOutC(bet) {
       if (results.board[0] === 4 && results.board[1] === 4 || results.board[2] === 4 && results.board[3] === 4) {
           activeC.s = activeC.s + (bet * 2)
         }
-        else if ((results.board[0] === 5 && results.board[1] === 5) || (results.board[2] === 5 && results.board[3] === 5) || (results.board[1] === 5 && results[2] === 5)) return bet * 1;
-        else if ((results.board[0] === 6 && results.board[1] === 6) || (results.board[2] === 6 && results.board[3] === 6) || (results.board[1] === 6 && results[2] === 6)) return bet * 1;
-        else if ((results.board[0] === 7 && results.board[1] === 7) || (results.board[2] === 7 && results.board[3] === 7) || (results.board[1] === 7 && results[2] === 7)) return bet * 3;
-        else if ((results.board[0] === 8 && results.board[1] === 8) || (results.board[2] === 8 && results.board[3] === 8) || (results.board[1] === 8 && results[2] === 8)) return bet * 10;
+        else if (results.board[0] === 5 && results.board[1] === 5 || results.board[2] === 5 && results.board[3] === 5 || results.board[1] === 5 && results.board[2] === 5) return bet * 1;
+        else if (results.board[0] === 6 && results.board[1] === 6 || results.board[2] === 6 && results.board[3] === 6 || results.board[1] === 6 && results.board[2] === 6) return bet * 1;
+        else if (results.board[0] === 7 && results.board[1] === 7 || results.board[2] === 7 && results.board[3] === 7 || results.board[1] === 7 && results.board[2] === 7) return bet * 3;
+        else if (results.board[0] === 8 && results.board[1] === 8 || results.board[2] === 8 && results.board[3] === 8 || results.board[1] === 8 && results.board[2] === 8) return bet * 10;
           else {
             console.log("wtf pairs");
             return 0;
