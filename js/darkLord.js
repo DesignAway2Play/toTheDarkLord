@@ -1,7 +1,27 @@
 // const vars
+const lookupStage = ["forest", "druid", "dungeon"]
+const battles = {
+  forest: 'assets/finished/backgrounds/nightforest1080p.png',
+  druid: 'assets/finished/backgrounds/druids1080p.png',
+  dungeon: 'assets/finished/backgrounds/dungeon.png',
+};
 
+const symbols = {
+  1: 'assets/finished/symbols/crossStatic.png',
+  2: 'assets/finished/symbols/shieldStatic.png',
+  3 'assets/finished/symbols/crossStatic.png',
+  4: 'assets/finished/symbols/shieldStatic.png',
+  five: 'assets/finished/symbols/bloodKnifeSttic.png',
+  six: 'assets/finished/symbols/chalice.gif',
+  seven: 'assets/finished/symbols/demonCodexStatic.png',
+  eight: 'assets/finished/symbols/blackHeartThorn.gif'
+}
 
-// cached elements
+// cached elements refs
+
+const stage = document.querySelector('.battleBoard');
+const start = document.querySelector('.start')
+const playIt = document.querySelector('.intro')
 
 //state vars
 
@@ -13,12 +33,17 @@ let winCheck = {
 
 // event listeners
 
+document.querySelector('.startB').addEventListener('click', initialize);
 
 
 //functions
 
-initialize();
+
+
 function initialize() {
+  console.log('you did it')
+  playIt.play();
+  stage.src = battles
   turnPlayer = 0;
   /*
   sym = {
@@ -186,6 +211,7 @@ console.log(results.bonusChance(1))
 // where all needed functions initialize
   activeC = chooseC();
   results.jackpotVisibility();
+  start.style.visibility = "hidden";
   }
 
 
