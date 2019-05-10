@@ -6,15 +6,16 @@ const battles = {
   dungeon: 'assets/finished/backgrounds/dungeon.png',
 };
 
-const symbols = {
-  1: 'assets/finished/symbols/crossStatic.png',
-  2: 'assets/finished/symbols/shieldStatic.png',
-  3 'assets/finished/symbols/crossStatic.png',
-  4: 'assets/finished/symbols/shieldStatic.png',
-  five: 'assets/finished/symbols/bloodKnifeSttic.png',
-  six: 'assets/finished/symbols/chalice.gif',
-  seven: 'assets/finished/symbols/demonCodexStatic.png',
-  eight: 'assets/finished/symbols/blackHeartThorn.gif'
+const symbols = ['assets/finished/symbols/error.png' ,'assets/finished/symbols/crossStatic.png',
+'assets/finished/symbols/shieldStatic.png', 'assets/finished/symbols/crossStatic.png',
+'assets/finished/symbols/shieldStatic.png', 'assets/finished/symbols/bloodKnifeSttic.png',
+'assets/finished/symbols/chalice.gif', 'assets/finished/symbols/demonCodexStatic.png',
+'assets/finished/symbols/blackHeartThorn.gif'];
+
+const buttons = {
+  oneX: 'assets/finished/buttons/bet1X.gif',
+  threeX: 'assets/finished/buttons/bet3X.gif',
+  tenX: 'assets/finished/buttons/bet10X.gif',
 }
 
 // cached elements refs
@@ -22,6 +23,11 @@ const symbols = {
 const stage = document.querySelector('.battleBoard');
 const start = document.querySelector('.start')
 const playIt = document.querySelector('.intro')
+const displayPScore = document.querySelector('.pScore')
+const displayCScore = document.querySelector('.cScore')
+const minBet = document.querySelector('.oneX');
+const medBet = document.querySelector('.threeX');
+const maxBet = document.querySelector('.tenX');
 
 //state vars
 
@@ -41,53 +47,29 @@ document.querySelector('.startB').addEventListener('click', initialize);
 
 
 function initialize() {
-  console.log('you did it')
+  console.log('you did it');
   playIt.play();
-  stage.src = battles
+  minBet.src = buttons.oneX;
+  medBet.src = buttons.threeX;
+  maxBet.src = buttons.tenX;
+  stage.src = battles[lookupStage[randomizer(3, true)]];
   turnPlayer = 0;
-  /*
-  sym = {
-      x1Icon_1: {
-        imgURL = 'assets/img/blank.png',
-      },
-      x1Icon_2: {
-        imgURL = 'assets/img/blank.png',
-      },
-      x2Icon_1: {
-        imgURL = 'assets/img/blank.png',
-      },
-      x2Icon_2: {
-        imgURL = 'assets/img/blank.png',
-      },
-      x3Icon:  {
-        imgURL = 'assets/img/blank.png',
-      },
-      x2Icon: {
-        imgURL = 'assets/img/blank.png',
-      },
-      x3Icon:  {
-        imgURL = 'assets/img/blank.png',
-      },
-      x4Icon:  {
-        imgURL = 'assets/img/blank.png',
-    },
-    */
     cScore = {
-        kali: {
-          s: 300,
-          stam: 2,
-          results: ["", "", "", ""],
+      kali: {
+        s: 300,
+        stam: 2,
+        results: ["", "", "", ""],
         },
-        thor: {
-          s: 400,
-          stam: 4,
-          results: ["", "", "", ""],
+      thor: {
+        s: 400,
+        stam: 4,
+        results: ["", "", "", ""],
         },
       },
   pScore = {
-      s: 150,
-      stam: randomizer(6, false),
-      results: ["", "", "", ""],
+    s: 150,
+    stam: randomizer(6, false),
+    results: ["", "", "", ""],
     },
   bonus =  {
     d20: [0,0,0],
@@ -212,6 +194,9 @@ console.log(results.bonusChance(1))
   activeC = chooseC();
   results.jackpotVisibility();
   start.style.visibility = "hidden";
+  displayPScore.textContent = pScore.s;
+  displayCScore.textContent = activeC.s;
+  console.log('end of init!')
   }
 
 
