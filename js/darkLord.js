@@ -307,9 +307,9 @@ function sCheck() {
     setTimeout(function(){
       turnStatus.style.visibility = "hidden";
     }, 7000);
-        setTimeout(function(){
-    start.style.visibility = "visible";
-  }, 9500);
+    setTimeout(function(){
+      start.style.visibility = "visible";
+    }, 9500);
   }
 }
 
@@ -344,7 +344,6 @@ function newC() {
 
 function payOut(bet) {
     if (results.board[0] === results.board[1] && results.board[1] === results.board[2] && results.board[2] === results.board[3]) {
-      // damage
       if (results.board.join('') == 1111) {
         attackP.src = hero1.swordSwing;
         attackArea.style.visibility = "visible";
@@ -399,7 +398,6 @@ function payOut(bet) {
         attackArea.style.visibility = "visible";
         return bet * 1;
       }
-    // health regen
       else if (results.board[0] === 3 && results.board[1] === 3 && results.board[2] === 3 || results.board[1] === 3 && results.board[2] === 3 && results.board[3] === 3) {
         pScore.s = pScore.s + (bet * 4);
         return 0;
@@ -431,7 +429,6 @@ function payOut(bet) {
     else if (results.board[0] === results.board[1] || results.board[2] === results.board[3] || results.board[1] === results.board[2]) {
         if (results.board[0] === 4 && results.board[1] === 4 || results.board[2] === 4 && results.board[3] === 4) {
             pScore.s = pScore.s + (bet * 2);
-
             return 0;
           }
         else if (results.board[0] === 5 && results.board[1] === 5 || results.board[2] === 5 && results.board[3] === 5 || results.board[1] === 5 && results.board[2] === 5) {
@@ -459,14 +456,12 @@ function payOut(bet) {
         }
     }
   else {
-      // add dom manip
       return 0;
     }
 };
 
 function payOutC(bet) {
   if (results.board[0] === results.board[1] && results.board[1] === results.board[2] && results.board[2] === results.board[3]) {
-    // damage
       if (results.board.join('') == 1111) {
         return bet * 3
       }
@@ -483,7 +478,7 @@ function payOutC(bet) {
       else if (results.board.join('') == 5555) {
         turnChange(true);
         return 0;
-        }
+      }
       else if (results.board.join('') == 6666) {
         return bet * 25;
       }
@@ -627,5 +622,4 @@ function hideArea() {
   playArea2.style.visibility = "hidden";
   attackArea.style.visibility = "hidden";
   turnStatus.style.visibility = "hidden";
-
 }

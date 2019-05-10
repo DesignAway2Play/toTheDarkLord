@@ -42,7 +42,6 @@ position:   fixed;
   weight: 150px;
 }
 
-/* absolue position here and set later */
 
 .playArea, .playArea2 {
   display: flex;
