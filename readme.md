@@ -1,9 +1,9 @@
 For The Dark Lord -
-by darkest.tech - https://cl.ly/0856ba94c064
+by darkest.tech - <img src="https://cl.ly/0856ba94c064">
+
 Game link - https://designaway2play.github.io/toTheDarkLord/
 
-
-Early wireframe of the game - https://cl.ly/815c934e00e6
+Early wireframe of the game - <img src="https://cl.ly/815c934e00e6">
 
 Background: Beasts and false gods have come to take Lucifer Morningstar's throne. Defend his kingdom as these false gods approach.
 
@@ -13,15 +13,23 @@ Screenshot(s): Images of your actual game.
 
 v1.0 screenshots
 
-Start screen - https://cl.ly/d1c4bf4814ff
-Slots Results/Gameplay  - https://cl.ly/99187d92c619
+Start screen
+<img src="https://cl.ly/d1c4bf4814ff">
+
+Slots Results/Gameplay
+<img src="https://cl.ly/99187d92c619">
 
 Technologies Used:
 Javascript, HTML, CSS for development.
 Atom - code management
 Git and Github and Github pages - store repo, assets, and deploy to github pages
-Notion 6 - Music notation and export of .wav music - https://cl.ly/0856ba94c064
-Adobe Photoshop and Typefont: Creation of pixelart and color levels of background, character models, and symbols. Font retrieved from adobe typekit. - https://cl.ly/6753d24a75da
+
+Notion 6 - Music notation and export of .wav music
+<img src="https://cl.ly/0856ba94c064">
+
+Adobe Photoshop and Typefont: Creation of pixelart and color levels of background, character models, and symbols. Font retrieved from adobe typekit.
+<img src="https://cl.ly/6753d24a75da">
+
 
 Getting Started:
 
