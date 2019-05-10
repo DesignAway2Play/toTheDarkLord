@@ -1,4 +1,3 @@
-// const vars
 const lookupStage = ["forest", "druid", "dungeon"]
 const battles = {
   forest: 'assets/finished/backgrounds/nightforest1080p.png',
@@ -24,8 +23,6 @@ const hero1 = {
   victory: 'assets/finished/hero/victory.gif'
 }
 
-// cached elements refs
-
 const stage = document.querySelector('.battleBoard');
 const start = document.querySelector('.start')
 const playIt = document.querySelector('.intro')
@@ -49,15 +46,7 @@ const attackArea = document.querySelector('.attackArea');
 const attackP = document.querySelector('.attackP');
 const heroActive = document.querySelector('.hero');
 
-//state vars
-
 let pScore, bonus, results, cScore, turnPlayer, activeC
-
-let winCheck = {
-
-};
-
-// event listeners
 
 document.querySelector('.startB').addEventListener('click', initialize);
 document.querySelector('.oneX').addEventListener('click', betChoice1);
@@ -67,16 +56,14 @@ document.querySelector('.playArea').addEventListener('click', hideArea);
 document.querySelector('.attack').addEventListener('click', hideArea);
 document.querySelector('.playArea2').addEventListener('click', hideArea);
 document.querySelector('.attackArea').addEventListener('click', hideArea);
-//functions
-
-
 
 function initialize() {
   playIt.play();
   hero.src = hero1.stand;
   maxBet.style.display = "block";
   medBet.style.display = "block";
-  activeComp.src = hero1.swordSwing;
+  minBet.style.display = "block";
+  activeComp.src = 'assets/finished/effects/fire1.gif';
   minBet.src = buttons.oneX;
   medBet.src = buttons.threeX;
   maxBet.src = buttons.tenX;
@@ -101,27 +88,6 @@ function initialize() {
     },
   bonus =  {
     d20: [0,0,0],
-      /*
-    bIcon1: {
-        imgURL = 'assets/img/blank.png'
-      },
-    b1Icon2: {
-        imgURL = 'assets/img/blank.png'
-      },
-    b2Icon: {
-        imgURL = 'assets/img/blank.png'
-      },
-    b3Icon: {
-        imgURL = 'assets/img/blank.png'
-      },
-    b2Icon: {
-        imgURL = 'assets/img/blank.png'
-      },
-    b3Icon:  {
-        imgURL = 'assets/img/blank.png'
-      }
-    },
-    */
     freq: 5,
     go: function () {
       var i = 0;
@@ -145,11 +111,8 @@ function initialize() {
   results = {
     board: [1, 1, 1, 1],
     symLength: 6,
-    // betAmount should be parseInt
     betAmount: 2,
-
     pull: function () {
-    // need event listener of amount of bet
       let symShow = function showSym(i) {
         playArea.style.visibility = "visible"
         if (i == 4) {
@@ -170,73 +133,80 @@ function initialize() {
       };
       if (pScore.stam > 0) {
         if (turnPlayer === 0) {
+          maxBet.style.visibility = "hidden";
+          medBet.style.visibility = "hidden";
+          minBet.style.visibility = "hidden";
           heroActive.src = hero1.victory;
           pScore.s = pScore.s - results.betAmount;
           results.board.forEach(function (col, i) {
             results.board.splice(i, 1, randomizer(results.symLength, false));
             setTimeout(function() {
-              console.log(i);
-              symShow(i) }, 2000);
+              symShow(i) }, 1000);
             });
-            setTimeout(symShow, 3000, 4);
-            let attackReport = payOut(results.betAmount)
-            attackArea.style.visibility = "visible;"
-            turnStatus.textContent = `You did ${attackReport} damage to the enemy!`
-
-            setTimeout(function() {
-              activeC.s = activeC.s - attackReport;
-              pScore.stam = pScore.stam - 1;
-              displayPScore.textContent = pScore.s;
-              displayCScore.textContent = activeC.s;
-              attackArea.style.visibility = "hidden";
-              attackArea.style.visibility = "hidden";
-            }, 2000);
-            sCheck();
-            newC();
-            results.jackpotVisibility();
-            pStam.textContent = pScore.stam;
-            cStam.textContent = activeC.stam;
+          let attackReport = payOut(results.betAmount)
+          if (attackReport > 0) {
+            attackArea.style.visibility = "visible";
+          }
+          turnStatus.style.visibility = "visible";
+          turnStatus.textContent = `You did ${attackReport} damage to the enemy!`
+          activeC.s = activeC.s - attackReport;
+          setTimeout(symShow, 5000, 4);
+          setTimeout(function() {
+            displayPScore.textContent = pScore.s;
+            displayCScore.textContent = activeC.s;
+            attackArea.style.visibility = "hidden";
+            turnStatus.style.visibility = "hidden";
+          }, 5000);
+          sCheck();
+          newC();
+          results.jackpotVisibility();
+          pScore.stam = pScore.stam - 1;
+          pStam.textContent = pScore.stam;
+          cStam.textContent = activeC.stam;
+          setTimeout(function(){
             turnChange();
-              }
+          }, 5000);
         }
+      }
       else if (activeC.stam > 0) {
-          if (turnPlayer === 1) {
-            activeC.s = activeC.s - results.betAmount
-            results.board.forEach(function (col, i) {
-              results.board.splice(i, 1, randomizer(results.symLength, false));
-              setTimeout(function() {
-                symShow(i)}, 2000);
+        if (turnPlayer === 1) {
+          activeC.s = activeC.s - results.betAmount
+          results.board.forEach(function (col, i) {
+            results.board.splice(i, 1, randomizer(results.symLength, false));
+            setTimeout(function() {
+                symShow(i)}, 1000);
               });
-            setTimeout(symShow, 4000, 4);
+            setTimeout(symShow, 6000, 4);
             let attackReport = payOutC(results.betAmount);
             attackArea.style.visibility = "visible;"
+            turnStatus.style.visibility = "visible";
             turnStatus.textContent = `Boss did ${attackReport} damage to you!`
             setTimeout(function() {
               pScore.s = pScore.s - attackReport;
-              activeC.stam = activeC.stam - 1;
               displayPScore.textContent = pScore.s;
               displayCScore.textContent = activeC.s;
-              turnStatus.visibility = "hidden";
+              turnStatus.style.visibility = "hidden";
               attackArea.style.visibility = "hidden";
             }, 5000);
-            sCheck();
             newC();
+            sCheck();
+            activeC.stam = activeC.stam - 1;
             results.jackpotVisibility();
             displayPScore.textContent = pScore.s;
             displayCScore.textContent = activeC.s;
             pStam.textContent = pScore.stam;
             cStam.textContent = activeC.stam;
-            turnChange();
+            setTimeout(function(){
+              turnChange();
+            }, 8000);
           };
         }
       },
     jackpotVisibility: function () {
-      // 1 out of 3 chance for half jackpot
       results.symLength = 6;
       var i = 0;
         var halfJack = randomizer(3, false);
         var halfJack2 = randomizer(3, false);
-      // 1 out of 5 chance for jackpot
         var fullJack = randomizer(5, false);
         var fullJack2 = randomizer(5, false);
         var jackpotLength = 0;
@@ -244,12 +214,9 @@ function initialize() {
           if (fullJack === fullJack2) jackpotLength += 1;
         results.symLength += jackpotLength;
       },
-      // bonus section
       bonusChance: function () {
         var answer = randomizer(4, false);
-        console.log(answer);
         var d20Index = randomizer(20, true);
-        console.log(d20Index);
           if (answer == 1) results.bonus_addTrue();
           if (results.bonus_d20[d20Index] === true) bonus.go();
       },
@@ -261,17 +228,6 @@ function initialize() {
           results.bonus_d20.unshift(true);
         },
     };
-
-/*
-order of ops:
-console.log(results.jackpotVisibility(1))
-  this affects results.symLength
-console.log(results.pull(1))
-  this affects pScore.s, results.board
-console.log(results.bonusChance(1))
-  this affects results.bonus_d20
-*/
-// where all needed functions initialize
   activeC = chooseC();
   results.jackpotVisibility();
   start.style.visibility = "hidden";
@@ -281,14 +237,11 @@ console.log(results.bonusChance(1))
   cStam.textContent = activeC.stam;
   }
 
-
-/*
-you need a function for GameOver!!!!
-*/
-
 function betChoice1(amount) {
   results.betAmount = 1;
   results.pull();
+  displayPScore.textContent = pScore.s;
+  displayCScore.textContent = activeC.s;
 };
 
 function betChoice2(amount) {
@@ -313,7 +266,6 @@ function showSym(i) {
   else if (i = 0) {
       sym1.src = symbols[results.board[i]];
       i += 1;
-      console.log(i);
       showSym(i);
   }
   else if (i = 1) {
@@ -345,13 +297,19 @@ function sCheck() {
     maxBet.style.display = "inline";
     medBet.style.display = "inline";
   }
-  if (pScore.s < 0) {
+  if (pScore.s < 0 || pScore.s == 0) {
     pScore.s = 0;
-    turnStatus.textContent = "You lose!"
+    maxBet.style.display = "none";
+    medBet.style.display = "none";
+    minBet.style.display = "none";
+    turnStatus.textContent = "You lost weary traveler!"
     turnStatus.style.visibility = "visible";
     setTimeout(function(){
-      start.style.visibility = "visible";
-    }, 10000);
+      turnStatus.style.visibility = "hidden";
+    }, 7000);
+        setTimeout(function(){
+    start.style.visibility = "visible";
+  }, 9500);
   }
 }
 
@@ -366,11 +324,25 @@ function chooseC() {
   };
 
 function newC() {
-  if (activeC.s === 0) chooseC();
+  if (activeC.s === 0) {
+    turnStatus.textContent = "You slayed! A new God approaches!"
+    maxBet.style.visibility = "hidden";
+    medBet.style.visibility = "hidden";
+    minBet.style.visibility = "hidden";
+    turnStatus.style.visibility = "visible";
+    setTimeout(function(){
+      turnStatus.style.visibility = "hidden";
+      pScore.s = 200;
+      pScore.stam = 5;
+    }, 7000);
+    maxBet.style.visibility = "visible";
+    medBet.style.visibility = "visible";
+    minBet.style.visibility = "visible";
+    chooseC();
+  };
 };
 
 function payOut(bet) {
-  // add dom manip
     if (results.board[0] === results.board[1] && results.board[1] === results.board[2] && results.board[2] === results.board[3]) {
       // damage
       if (results.board.join('') == 1111) {
@@ -378,25 +350,21 @@ function payOut(bet) {
         attackArea.style.visibility = "visible";
         return bet * 2
       }
-      // health regen
       else if (results.board.join('') == 2222) {
         pScore.s = pScore.s + (bet * 4);
         return 0
       }
-      // charged attack
       else if (results.board.join('') == 3333) {
         attackP.src = hero1.swordSwing;
         attackArea.style.visibility = "visible";
         turnStatus.style.visibility = "visible";
         return bet * 5
       }
-      //critical hit
       else if (results.board.join('') == 4444) {
         attackP.src = hero1.swordSwing;
         attackArea.style.visibility = "visible";
         return bet * 10
       }
-      // super
       else if (results.board.join('') == 5555) {
         attackP.src = hero1.swordSwing;
         attackArea.style.visibility = "visible";
@@ -413,7 +381,6 @@ function payOut(bet) {
         attackArea.style.visibility = "visible";
         return bet * 50
       }
-      // instant kill
       else if (results.board.join('') == 8888) {
         attackP.src = hero1.swordSwing;
         attackArea.style.visibility = "visible";
@@ -421,12 +388,6 @@ function payOut(bet) {
         return 0
       }
     }
-/*
-    for debugging
-     else {
-      console.log("wtf all 4")
-  }
-  */
     else if (results.board[0] === results.board[1] && results.board[0] === results.board[2] || results.board[1] === results.board[2] && results.board[1] === results.board[3] ) {
       if (results.board[0] === 1 && results.board[1] === 1 && results.board[2] === 1 || results.board[1] === 1 && results.board[2] === 1 && results.board[3] === 1) {
         attackP.src = hero1.swordSwing;
@@ -466,14 +427,7 @@ function payOut(bet) {
         attackArea.style.visibility = "visible";
         return bet * 50;
       }
-      /*
-      for debugging
-      else {
-            console.log("wtf all 3");
-          }
-          */
     }
-
     else if (results.board[0] === results.board[1] || results.board[2] === results.board[3] || results.board[1] === results.board[2]) {
         if (results.board[0] === 4 && results.board[1] === 4 || results.board[2] === 4 && results.board[3] === 4) {
             pScore.s = pScore.s + (bet * 2);
@@ -503,13 +457,6 @@ function payOut(bet) {
         else {
           return 0;
         }
-        /*
-        for debugging
-        else {
-              console.log("wtf pairs");
-              return 0;
-            }
-            */
     }
   else {
       // add dom manip
@@ -518,26 +465,21 @@ function payOut(bet) {
 };
 
 function payOutC(bet) {
-  // add dom manip
   if (results.board[0] === results.board[1] && results.board[1] === results.board[2] && results.board[2] === results.board[3]) {
     // damage
       if (results.board.join('') == 1111) {
         return bet * 3
       }
-    // health regen
       else if (results.board.join('') == 2222) {
         activeC.s = activeC.s + (bet * 2);
         return 0;
           }
-    // charged attack
       else if (rresults.board.join('') == 3333) {
         return bet * 5;
       }
-    //critical hit
       else if (results.board.join('') == 4444) {
         return bet * 10;
       }
-    // super
       else if (results.board.join('') == 5555) {
         turnChange(true);
         return 0;
@@ -548,12 +490,10 @@ function payOutC(bet) {
       else if (results.board.join('') == 7777) {
         return bet * 50;
       }
-    // instant kill
       else if (results.board.join('') == 8888) {
         return bet * 100;
       }
           }
-
   else if (results.board[0] === results.board[1] && results.board[0] === results.board[2] || results.board[1] === results.board[2] && results.board[1] === results.board[3] ) {
       if (results.board[0] === 1 && results.board[1] === 1 && results.board[2] === 1 || results.board[1] === 1 && results.board[2] === 1 && results.board[3] === 1) {
         return bet * 1;
@@ -599,12 +539,10 @@ function payOutC(bet) {
           return bet * 10;
         }
           else {
-            console.log("wtf pairs");
             return 0;
           };
         }
   else {
-      // add dom manip
       return 0
       }
   };
@@ -637,15 +575,16 @@ function payOutBonus() {
  function randomizer(length, condition) {
    if (condition === true) return Math.floor(Math.random() * length);
    else {
-   // six should be dynamic based upon the modifier for the half jackpot and jackpot
     return Math.floor(Math.random() * length) + 1;
     };
   };
 
   function turnChange(condition){
-    // this is the computer's turn
     if (turnPlayer === 1) {
       if (activeC.stam > 0) {
+        maxBet.style.visibility = "hidden";
+        medBet.style.visibility = "hidden";
+        minBet.style.visibility = "hidden";
         results.betAmount = randomizer(10, false);
         results.pull();
       }
@@ -656,10 +595,15 @@ function payOutBonus() {
         displayCScore.textContent = activeC.s;
         pStam.textContent = pScore.stam;
         cStam.textContent = activeC.stam;
+        maxBet.style.visibility = "visible";
+        medBet.style.visibility = "visible";
+        minBet.style.visibility = "visible";
           };
         }
-    // this is the player's turn
     else if (turnPlayer === 0) {
+      maxBet.style.visibility = "visible";
+      medBet.style.visibility = "visible";
+      minBet.style.visibility = "visible";
       if (pScore.stam === 0) {
         turnPlayer += 1;
         activeC.stam = randomizer(8, false)
