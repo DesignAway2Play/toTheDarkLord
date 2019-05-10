@@ -1,9 +1,11 @@
 For The Dark Lord -
-by darkest.tech - <img src="https://cl.ly/0856ba94c064">
+by darkest.tech -
+<a href="https://cl.ly/07a559827b10" target="_blank"><img src="https://d1sz9tkli0lfjq.cloudfront.net/items/143C182T1M1X1S2g102i/dt_border_black.png" style="display: block;height: auto;width: 100%;"/></a>
 
 Game link - https://designaway2play.github.io/toTheDarkLord/
 
-Early wireframe of the game - <img src="https://cl.ly/815c934e00e6">
+Early wireframe of the game -
+<a href="https://cl.ly/815c934e00e6" target="_blank"><img src="https://d1sz9tkli0lfjq.cloudfront.net/items/0y1L1C1d2L1N3o0e0J1g/Image%202019-05-10%20at%208.55.25%20AM.png" style="display: block;height: auto;width: 100%;"/></a>
 
 Background: Beasts and false gods have come to take Lucifer Morningstar's throne. Defend his kingdom as these false gods approach.
 
@@ -14,10 +16,10 @@ Screenshot(s): Images of your actual game.
 v1.0 screenshots
 
 Start screen
-<img src="https://cl.ly/d1c4bf4814ff">
+<a href="https://cl.ly/d1c4bf4814ff" target="_blank"><img src="https://d1sz9tkli0lfjq.cloudfront.net/items/3W293z1Q2q3N0F2N3C39/Image%202019-05-10%20at%208.53.24%20AM.png" style="display: block;height: auto;width: 100%;"/></a>
 
 Slots Results/Gameplay
-<img src="https://cl.ly/99187d92c619">
+<a href="https://cl.ly/99187d92c619" target="_blank"><img src="https://d1sz9tkli0lfjq.cloudfront.net/items/3T0L1S1U2u1T0W3F3W1E/Image%202019-05-10%20at%208.53.39%20AM.png" style="display: block;height: auto;width: 100%;"/></a>
 
 Technologies Used:
 Javascript, HTML, CSS for development.
@@ -25,10 +27,10 @@ Atom - code management
 Git and Github and Github pages - store repo, assets, and deploy to github pages
 
 Notion 6 - Music notation and export of .wav music
-<img src="https://cl.ly/0856ba94c064">
+<a href="https://cl.ly/0856ba94c064" target="_blank"><img src="https://d1sz9tkli0lfjq.cloudfront.net/items/0Q1M2g1g3A1L0O011Y26/Image%202019-05-10%20at%208.52.53%20AM.png" style="display: block;height: auto;width: 100%;"/></a>
 
 Adobe Photoshop and Typefont: Creation of pixelart and color levels of background, character models, and symbols. Font retrieved from adobe typekit.
-<img src="https://cl.ly/6753d24a75da">
+<a href="https://cl.ly/6753d24a75da" target="_blank"><img src="https://d1sz9tkli0lfjq.cloudfront.net/items/073F0n390x3i1F0W1A2f/Image%202019-05-10%20at%208.49.32%20AM.png" style="display: block;height: auto;width: 100%;"/></a>
 
 
 Getting Started:
